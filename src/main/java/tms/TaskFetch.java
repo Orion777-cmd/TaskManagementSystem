@@ -128,6 +128,20 @@ public class TaskFetch {
 
         return tasks;
     }
+    
+    public void deleteTask(int taskId) {
+        try (Connection conn = JDBConnection.getConnection()) {
+            String query = "DELETE FROM tasks WHERE id = ?";
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setInt(1, taskId);
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+    }
+
 
 
 }

@@ -94,7 +94,10 @@
                                     <!-- Add buttons for completing, editing, and deleting tasks -->
                                     <button type="button" class="btn btn-success">Completed</button>
                                     <button type="button" class="btn btn-primary">Edit Task</button>
-                                    <button type="button" class="btn btn-danger">Delete Task</button>
+                                    <form action="DeleteTaskServlet" method="post">
+				                        <input type="hidden" name="taskId" value="<%= task.getId() %>">
+				                        <button type="submit" class="btn btn-danger">Delete Task</button>
+				                    </form>
                                 </div>
                             </div>
                         </div>

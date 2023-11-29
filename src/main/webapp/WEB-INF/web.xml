@@ -49,4 +49,14 @@
     <servlet-name>FetchTaskServlet</servlet-name>
     <url-pattern>/FetchTaskServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteTaskServlet</display-name>
+    <servlet-name>DeleteTaskServlet</servlet-name>
+    <servlet-class>tms.DeleteTaskServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteTaskServlet</servlet-name>
+    <url-pattern>/DeleteTaskServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
