@@ -15,24 +15,60 @@
 <body>
 	<%
 		String username = (String) session.getAttribute("username");
-		int user_id = (Integer) session.getAttribute("user_id");
-		System.out.println(user_id);
+		int user_id; 
+		Object userIdFromSession = session.getAttribute("user_id");
+		if (userIdFromSession != null) {
+		    user_id = (Integer) userIdFromSession;
+		} else {
+		    String userIdParam = request.getParameter("user_id");
+		    
+		    user_id = Integer.parseInt(userIdParam);
+		   
+		}
 		TaskFetch taskFetch = new TaskFetch();
-	    List<Task> tasks = taskFetch.fetchTasksForUser(user_id);
+		String searchTitle = request.getParameter("searchTitle");
+        String searchDueDate = request.getParameter("searchDueDate");
+        List<Task> tasks;
+
+        if (searchTitle != null && !searchTitle.isEmpty()) {
+            // If search by title
+            tasks = taskFetch.fetchTasksByTitle(user_id, searchTitle);
+        } else if (searchDueDate != null && !searchDueDate.isEmpty()) {
+            // If search by due date
+            tasks = taskFetch.fetchTasksByDueDate(user_id, searchDueDate);
+        } else {
+            // If no search criteria, fetch all tasks
+            tasks = taskFetch.fetchTasksForUser(user_id);
+        }
 	%>
     <div class="bg-success container mt-5 p-5">
         <!-- Edit Profile Button -->
         <a href="editprofile.jsp" class="btn btn-primary float-right">Edit Profile</a>
 
-        <h1 class="text-center mb-4">User Profile</h1>
+        <h1 class="text-center mb-4"><%= username %></h1>
         
+        
+        <form action="profile.jsp?user_id=<%= user_id %>" method="get" class="mb-3 d-flex justify-content-center">
+		    <div class="form-row">
+		        <div class="col">
+		            <input type="text" class="form-control" name="searchTitle" placeholder="Search by Title">
+		        </div>
+		        <div class="col">
+		            <input type="text" class="form-control" name="searchDueDate" placeholder="Search by Due Date">
+		        </div>
+		        <div class="col">
+		            <button type="submit" class="btn btn-primary">Search</button>
+		        </div>
+		    </div>
+		</form>
+
         <!-- User Tasks Section -->
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <h2>Your Tasks</h2>
                 <!-- Display tasks fetched dynamically -->
                 <div class="row">
-                    <%-- Java code to fetch tasks and populate cards --%>
+                    
                     <% 
                         for (Task task : tasks) {
                     %>
