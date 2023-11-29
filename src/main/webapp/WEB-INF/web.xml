@@ -29,4 +29,24 @@
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddTaskServlet</display-name>
+    <servlet-name>AddTaskServlet</servlet-name>
+    <servlet-class>tms.AddTaskServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddTaskServlet</servlet-name>
+    <url-pattern>/AddTaskServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FetchTaskServlet</display-name>
+    <servlet-name>FetchTaskServlet</servlet-name>
+    <servlet-class>tms.FetchTaskServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FetchTaskServlet</servlet-name>
+    <url-pattern>/FetchTaskServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

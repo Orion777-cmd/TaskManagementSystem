@@ -10,7 +10,7 @@
 <body>
 	<div class="bg-success container h-50 mx-auto mt-5 text-center p-5">
         <h1 class="">Login Page</h1>
-        <form action="Login" method="post" class="mt-4">
+        <form action="LoginServlet" method="post" class="mt-4">
          
 
             <!-- Email Input -->
@@ -24,7 +24,7 @@
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary" value="LoginServlet">Login</button>
         </form>
     </div>
 </body>

@@ -10,7 +10,7 @@
 <body>
     <div class="bg-success container h-50 mx-auto mt-5 text-center p-5">
         <h1 class="">Fill out the necessary Information</h1>
-        <form action="register" method="post" class="mt-4">
+        <form action="RegistrationServlet" method="post" class="mt-4">
             <!-- Name Input -->
             <div class="form-group">
                 <input type="text" class="form-control" name="name" placeholder="Name" required>
@@ -27,7 +27,7 @@
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" value="RegisterationServlet">Submit</button>
         </form>
     </div>
 

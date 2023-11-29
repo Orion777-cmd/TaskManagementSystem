@@ -1,3 +1,6 @@
+<%@ page import="tms.TaskFetch, tms.Task" %>
+<%@ page import="java.sql.*, java.util.ArrayList, java.util.List" %>
+<%@ page import="jakarta.servlet.http.HttpSession" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,6 +13,13 @@
         crossorigin="anonymous">
 </head>
 <body>
+	<%
+		String username = (String) session.getAttribute("username");
+		int user_id = (Integer) session.getAttribute("user_id");
+		System.out.println(user_id);
+		TaskFetch taskFetch = new TaskFetch();
+	    List<Task> tasks = taskFetch.fetchTasksForUser(user_id);
+	%>
     <div class="bg-success container mt-5 p-5">
         <!-- Edit Profile Button -->
         <a href="editprofile.jsp" class="btn btn-primary float-right">Edit Profile</a>
@@ -20,62 +30,32 @@
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <h2>Your Tasks</h2>
-                <!-- Display tasks here, you can use a loop or other logic -->
-                
-                <!-- Search Feature -->
-                <div class="my-4">
-                    <h2>Search Tasks</h2>
-                    <form>
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search by Title or Due Date">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Search</button>
-                    </form>
-                </div>
-
-                <!-- Task Cards in a Grid -->
+                <!-- Display tasks fetched dynamically -->
                 <div class="row">
-                    <!-- Example Task 1 -->
-                    <div class="col-lg-6 mb-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Task Title 1</h5>
-                                <p class="card-text">Task Description 1</p>
-                                <p class="card-text">Due Date: 2023-01-01</p>
-                                <p class="card-text">Priority: High</p>
-                                <!-- Add buttons for completing, editing, and deleting tasks -->
-                                <button type="button" class="btn btn-success">Completed</button>
-                                <button type="button" class="btn btn-primary">Edit Task</button>
-                                <button type="button" class="btn btn-danger">Delete Task</button>
+                    <%-- Java code to fetch tasks and populate cards --%>
+                    <% 
+                        for (Task task : tasks) {
+                    %>
+                        <div class="col-lg-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><%= task.getTitle() %></h5>
+                                    <p class="card-text"><%= task.getDescription() %></p>
+                                    <p class="card-text">Due Date: <%= task.getDueDate() %></p>
+                                    <p class="card-text">Priority: <%= task.getPriority() %></p>
+                                    <!-- Add buttons for completing, editing, and deleting tasks -->
+                                    <button type="button" class="btn btn-success">Completed</button>
+                                    <button type="button" class="btn btn-primary">Edit Task</button>
+                                    <button type="button" class="btn btn-danger">Delete Task</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <!-- End of Example Task 1 -->
-
-                    <!-- Example Task 2 -->
-                    <div class="col-lg-6 mb-3">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Task Title 2</h5>
-                                <p class="card-text">Task Description 2</p>
-                                <p class="card-text">Due Date: 2023-01-02</p>
-                                <p class="card-text">Priority: Medium</p>
-                                <!-- Add buttons for completing, editing, and deleting tasks -->
-                                <button type="button" class="btn btn-success">Completed</button>
-                                <button type="button" class="btn btn-primary">Edit Task</button>
-                                <button type="button" class="btn btn-danger">Delete Task</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End of Example Task 2 -->
-
-                    <!-- Continue adding tasks as needed -->
+                    <% } %>
                 </div>
                 
                 <div class="text-center">
-				    <a href="addtask.jsp" type="button" class="btn btn-warning mt-5">Add Task</a>
+				    <a href="addtask.jsp?user_id=<%= user_id %>" type="button" class="btn btn-warning mt-5">Add Task</a>
 				</div>
-
 
             </div>
         </div>

@@ -8,22 +8,27 @@
     <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
+	<%
+	    String user_id = request.getParameter("user_id");
+	    // Now, userId contains the user_id passed from the profile.jsp page
+	%>
+	
     <div class="bg-success container h-50 mx-auto mt-5 text-center p-5">
         <h1>Add/Edit Task</h1>
 
         <!-- Task Form -->
-        <form action="addtask" method="post">
+        <form action="AddTaskServlet?user_id=<%= user_id %>" method="post">
             <div class="form-group">
-                <label for="taskTitle">Task Title:</label>
-                <input type="text" class="form-control" id="taskTitle" name="taskTitle" placeholder="Enter task title">
+                <label for="task_itle">Task Title:</label>
+                <input type="text" class="form-control" id="task_title" name="task_title" placeholder="Enter task title">
             </div>
             <div class="form-group">
-                <label for="taskDescription">Task Description:</label>
-                <textarea class="form-control" id="taskDescription" name="taskDescription" placeholder="Enter task description"></textarea>
+                <label for="description">Task Description:</label>
+                <textarea class="form-control" id="description" name="description" placeholder="Enter task description"></textarea>
             </div>
             <div class="form-group">
-                <label for="dueDate">Due Date:</label>
-                <input type="date" class="form-control" id="dueDate" name="dueDate">
+                <label for="due_date">Due Date:</label>
+                <input type="date" class="form-control" id="due_date" name="due_date">
             </div>
             <div class="form-group">
                 <label for="priority">Priority:</label>
@@ -33,7 +38,7 @@
                     <option value="Low">Low</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Save Task</button>
+            <button type="submit" class="btn btn-primary" value="AddTaskServlet">Save Task</button>
         </form>
     </div>
 </body>
