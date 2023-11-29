@@ -28,17 +28,23 @@
 		TaskFetch taskFetch = new TaskFetch();
 		String searchTitle = request.getParameter("searchTitle");
         String searchDueDate = request.getParameter("searchDueDate");
+        String sortBy = request.getParameter("sortBy");
         List<Task> tasks;
 
         if (searchTitle != null && !searchTitle.isEmpty()) {
-            // If search by title
+            
             tasks = taskFetch.fetchTasksByTitle(user_id, searchTitle);
         } else if (searchDueDate != null && !searchDueDate.isEmpty()) {
-            // If search by due date
+            
             tasks = taskFetch.fetchTasksByDueDate(user_id, searchDueDate);
         } else {
-            // If no search criteria, fetch all tasks
-            tasks = taskFetch.fetchTasksForUser(user_id);
+        	if ("dueDate".equals(sortBy)) {
+                tasks = taskFetch.fetchTasksSortedByDueDate(user_id);
+            } else if ("priority".equals(sortBy)) {
+                tasks = taskFetch.fetchTasksSortedByPriority(user_id);
+            } else {
+                tasks = taskFetch.fetchTasksForUser(user_id);
+            }
         }
 	%>
     <div class="bg-success container mt-5 p-5">
@@ -56,6 +62,12 @@
 		        <div class="col">
 		            <input type="text" class="form-control" name="searchDueDate" placeholder="Search by Due Date">
 		        </div>
+		        <div class="col">
+                    <select name="sortBy" class="form-control">
+                        <option value="default" <%=(sortBy == null || "default".equals(sortBy)) ? "selected" : ""%>>Default</option>
+                        <option value="dueDate" <%="dueDate".equals(sortBy) ? "selected" : ""%>>Due Date</option>
+                        <option value="priority" <%="priority".equals(sortBy) ? "selected" : ""%>>Priority</option>
+                    </select>
 		        <div class="col">
 		            <button type="submit" class="btn btn-primary">Search</button>
 		        </div>

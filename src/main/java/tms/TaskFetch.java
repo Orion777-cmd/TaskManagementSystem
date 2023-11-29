@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -96,4 +98,36 @@ public class TaskFetch {
 
         return tasks;
     }
+    
+ 
+    public List<Task> fetchTasksSortedByDueDate(int userId) {
+        List<Task> tasks = fetchTasksForUser(userId);
+        Collections.sort(tasks, Comparator.comparing(Task::getDueDate));
+        return tasks;
+    }
+
+    public List<Task> fetchTasksSortedByPriority(int userId) {
+        List<Task> tasks = fetchTasksForUser(userId);
+        
+
+        Comparator<Task> priorityComparator = Comparator.comparingInt(task -> {
+            switch (task.getPriority()) {
+                case "High":
+                    return 3;
+                case "Medium":
+                    return 2;
+                case "Low":
+                    return 1;
+                default:
+                    return 0; 
+            }
+        });
+
+       
+        Collections.sort(tasks, priorityComparator.reversed());
+
+        return tasks;
+    }
+
+
 }
