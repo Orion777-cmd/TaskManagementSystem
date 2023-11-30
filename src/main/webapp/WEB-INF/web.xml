@@ -79,4 +79,14 @@
     <servlet-name>EditTaskServlet</servlet-name>
     <url-pattern>/EditTaskServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditProfileServlet</display-name>
+    <servlet-name>EditProfileServlet</servlet-name>
+    <servlet-class>tms.EditProfileServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditProfileServlet</servlet-name>
+    <url-pattern>/EditProfileServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

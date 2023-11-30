@@ -21,6 +21,7 @@
 <body>
 	<%
 		String username = (String) session.getAttribute("username");
+		String password = (String) session.getAttribute("password");
 		int user_id; 
 		Object userIdFromSession = session.getAttribute("user_id");
 		if (userIdFromSession != null) {
@@ -55,7 +56,14 @@
 	%>
     <div class="bg-success container mt-5 p-5 d-flex-col">
         <!-- Edit Profile Button -->
-        <a href="editprofile.jsp" class="btn btn-primary float-right">Edit Profile</a>
+        <form action="editprofile.jsp" method="get" >
+        
+        	<input type="hidden" name="name" value="<%= username %>">
+        	<input type="hidden" name="password" value="<%= password %>">
+        	<input type="hidden" name="user_id" value="<%= user_id %>">
+        	<button type="submit" value="editprofile.jsp" class="btn btn-primary float-right">Edit Profile</button>
+        </form>
+        
 
         <h1 class="text-center mb-4"><%= username %></h1>
         
