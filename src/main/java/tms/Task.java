@@ -1,5 +1,4 @@
 package tms;
-
 import java.util.Date;
 
 public class Task {
@@ -8,13 +7,15 @@ public class Task {
     private String description;
     private Date dueDate;
     private String priority;
+    private boolean completed;
 
-    public Task(int id, String title, String description, Date dueDate, String priority) {
+    public Task(int id, String title, String description, Date dueDate, String priority, boolean completed) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
+        this.completed = completed;
     }
 
     // Getters and Setters...
@@ -57,5 +58,12 @@ public class Task {
 
     public void setPriority(String priority) {
         this.priority = priority;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+    public void setCompleted() {
+    	this.completed = completed;
     }
 }

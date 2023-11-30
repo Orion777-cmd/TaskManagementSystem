@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
         crossorigin="anonymous">
+    <style>
+        .completed-card {
+            text-decoration: line-through;
+            color: #d3d3d3; 
+        }
+    </style>
 </head>
 <body>
 	<%
@@ -47,7 +53,7 @@
             }
         }
 	%>
-    <div class="bg-success container mt-5 p-5">
+    <div class="bg-success container mt-5 p-5 d-flex-col">
         <!-- Edit Profile Button -->
         <a href="editprofile.jsp" class="btn btn-primary float-right">Edit Profile</a>
 
@@ -68,41 +74,48 @@
                         <option value="dueDate" <%="dueDate".equals(sortBy) ? "selected" : ""%>>Due Date</option>
                         <option value="priority" <%="priority".equals(sortBy) ? "selected" : ""%>>Priority</option>
                     </select>
+                  </div>
 		        <div class="col">
 		            <button type="submit" class="btn btn-primary">Search</button>
 		        </div>
+		    	
 		    </div>
 		</form>
 
         <!-- User Tasks Section -->
         <div class="row">
-            <div class="col-md-10 mx-auto">
-                <h2>Your Tasks</h2>
-                <!-- Display tasks fetched dynamically -->
-                <div class="row">
-                    
-                    <% 
-                        for (Task task : tasks) {
-                    %>
-                        <div class="col-lg-6 mb-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title"><%= task.getTitle() %></h5>
-                                    <p class="card-text"><%= task.getDescription() %></p>
-                                    <p class="card-text">Due Date: <%= task.getDueDate() %></p>
-                                    <p class="card-text">Priority: <%= task.getPriority() %></p>
-                                    <!-- Add buttons for completing, editing, and deleting tasks -->
-                                    <button type="button" class="btn btn-success">Completed</button>
-                                    <button type="button" class="btn btn-primary">Edit Task</button>
-                                    <form action="DeleteTaskServlet" method="post">
-				                        <input type="hidden" name="taskId" value="<%= task.getId() %>">
-				                        <button type="submit" class="btn btn-danger">Delete Task</button>
-				                    </form>
-                                </div>
+        <div class="col-md-10 mx-auto">
+            <h2>Your Tasks</h2>
+            <!-- Display tasks fetched dynamically -->
+            <div class="row">
+                <% 
+                    for (Task task : tasks) {
+                %>
+                    <div class="col-lg-6 mb-3">
+                        <div class="card <%= (task.isCompleted()) ? "completed-card" : "" %>">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= task.getTitle() %></h5>
+                                <p class="card-text"><%= task.getDescription() %></p>
+                                <p class="card-text">Due Date: <%= task.getDueDate() %></p>
+                                <p class="card-text">Priority: <%= task.getPriority() %></p>
+                                
+                                <button type="button" class="btn btn-warning">Edit Task</button>
+                                <form action="CompleteTaskServlet" method="post">
+                                    <input type="hidden" name="taskId" value="<%= task.getId() %>">
+                                    <button type="submit" class="btn btn-success <%=(task.isCompleted()) ? "disabled" : ""%>">
+                                        <%= (task.isCompleted()) ? "Completed" : "Complete" %>
+                                    </button>
+                                </form>
+
+                                <form action="DeleteTaskServlet" method="post">
+                                    <input type="hidden" name="taskId" value="<%= task.getId() %>">
+                                    <button type="submit" class="btn btn-danger">Delete Task</button>
+                                </form>
                             </div>
                         </div>
-                    <% } %>
-                </div>
+                    </div>
+                <% } %>
+            </div>
                 
                 <div class="text-center">
 				    <a href="addtask.jsp?user_id=<%= user_id %>" type="button" class="btn btn-warning mt-5">Add Task</a>

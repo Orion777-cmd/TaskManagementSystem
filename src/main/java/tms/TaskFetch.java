@@ -27,8 +27,9 @@ public class TaskFetch {
                         String description = resultSet.getString("description");
                         Date dueDate = resultSet.getDate("due_date");
                         String priority = resultSet.getString("priority");
+                        boolean completed = resultSet.getBoolean("completed");
 
-                        Task task = new Task(id, title, description, dueDate, priority);
+                        Task task = new Task(id, title, description, dueDate, priority, completed);
                         tasks.add(task);
                     }
                 }
@@ -56,8 +57,9 @@ public class TaskFetch {
                         String description = resultSet.getString("description");
                         Date dueDate = resultSet.getDate("due_date");
                         String priority = resultSet.getString("priority");
+                        boolean completed = resultSet.getBoolean("completed");
 
-                        Task task = new Task(id, taskTitle, description, dueDate, priority);
+                        Task task = new Task(id, taskTitle, description, dueDate, priority, completed);
                         tasks.add(task);
                     }
                 }
@@ -86,8 +88,8 @@ public class TaskFetch {
                         String description = resultSet.getString("description");
                         Date taskDueDate = resultSet.getDate("due_date");
                         String priority = resultSet.getString("priority");
-
-                        Task task = new Task(id, taskTitle, description, taskDueDate, priority);
+                        boolean completed = resultSet.getBoolean("completed");
+                        Task task = new Task(id, taskTitle, description, taskDueDate, priority, completed);
                         tasks.add(task);
                     }
                 }
@@ -141,6 +143,20 @@ public class TaskFetch {
 
         }
     }
+    
+    public void completeTask(int taskId) {
+        try (Connection conn = JDBConnection.getConnection()) {
+            String query = "UPDATE tasks SET completed = true WHERE id = ?";
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setInt(1, taskId);
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+    }
+
 
 
 

@@ -59,4 +59,14 @@
     <servlet-name>DeleteTaskServlet</servlet-name>
     <url-pattern>/DeleteTaskServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CompleteTaskServlet</display-name>
+    <servlet-name>CompleteTaskServlet</servlet-name>
+    <servlet-class>tms.CompleteTaskServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CompleteTaskServlet</servlet-name>
+    <url-pattern>/CompleteTaskServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
