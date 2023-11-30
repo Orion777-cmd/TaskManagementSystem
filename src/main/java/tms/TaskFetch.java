@@ -157,7 +157,50 @@ public class TaskFetch {
         }
     }
 
+    public void editTask(Task updatedTask) {
+        try (Connection conn = JDBConnection.getConnection()) {
+        	System.out.println(updatedTask.getTitle());
+            String query = "UPDATE tasks SET task_title = ?, description = ?, due_date = ?, priority = ?, completed = ? WHERE id = ?";
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setString(1, updatedTask.getTitle());
+                statement.setString(2, updatedTask.getDescription());
+                statement.setDate(3, new java.sql.Date(updatedTask.getDueDate().getTime()));
+                statement.setString(4, updatedTask.getPriority());
+                statement.setBoolean(5, updatedTask.isCompleted());
+                statement.setInt(6, updatedTask.getId());
 
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+}
+    public Task fetchTaskById(int taskId) {
+        try (Connection conn = JDBConnection.getConnection()) {
+            String query = "SELECT * FROM tasks WHERE id = ?";
+            System.out.println("here here here here here");
+            try (PreparedStatement statement = conn.prepareStatement(query)) {
+                statement.setInt(1, taskId);
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        int id = resultSet.getInt("id");
+                        String task_title = resultSet.getString("task_title");
+                        String description = resultSet.getString("description");
+                        Date due_date = resultSet.getDate("due_date");
+                        String priority = resultSet.getString("priority");
+                        boolean completed = resultSet.getBoolean("completed");
+
+                        return new Task(id, task_title, description, due_date, priority, completed);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null; 
+    }
 
 }

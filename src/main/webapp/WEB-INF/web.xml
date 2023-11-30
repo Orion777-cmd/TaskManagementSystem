@@ -69,4 +69,14 @@
     <servlet-name>CompleteTaskServlet</servlet-name>
     <url-pattern>/CompleteTaskServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditTaskServlet</display-name>
+    <servlet-name>EditTaskServlet</servlet-name>
+    <servlet-class>tms.EditTaskServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditTaskServlet</servlet-name>
+    <url-pattern>/EditTaskServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

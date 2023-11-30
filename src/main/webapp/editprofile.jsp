@@ -12,7 +12,7 @@
         <div class="bg-success container h-50 mx-auto mt-5 text-center p-5">
             <h2>Edit Your Profile</h2>
             <form>
-                <div class="form-group">
+                <div class="form-group" action="EditTaskServlet" method="post">
                     <label for="username">Username</label>
                     <input type="text" class="form-control" id="username" placeholder="Enter your username">
                 </div>

@@ -99,7 +99,15 @@
                                 <p class="card-text">Due Date: <%= task.getDueDate() %></p>
                                 <p class="card-text">Priority: <%= task.getPriority() %></p>
                                 
-                                <button type="button" class="btn btn-warning">Edit Task</button>
+                                <form action="edittask.jsp" method="get">
+								    <input type="hidden" name="id" value="<%= task.getId() %>">
+								    <input type="hidden" name="task_title" value="<%= task.getTitle() %>">
+								    <input type="hidden" name="description" value="<%= task.getDescription() %>">
+								    <input type="hidden" name="due_date" value="<%= task.getDueDate() %>">
+								    <input type="hidden" name="priority" value="<%= task.getPriority() %>">
+								    <input type="hidden" name="user_id" value="<%= user_id %>">
+								    <button type="submit" class="btn btn-warning">Edit Task</button>
+								</form>
                                 <form action="CompleteTaskServlet" method="post">
                                     <input type="hidden" name="taskId" value="<%= task.getId() %>">
                                     <button type="submit" class="btn btn-success <%=(task.isCompleted()) ? "disabled" : ""%>">
