@@ -89,4 +89,13 @@
     <servlet-name>EditProfileServlet</servlet-name>
     <url-pattern>/EditProfileServlet</url-pattern>
   </servlet-mapping>
+  <filter>
+    <display-name>RegistrationFilter</display-name>
+    <filter-name>RegistrationFilter</filter-name>
+    <filter-class>tms.RegistrationFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>RegistrationFilter</filter-name>
+    <url-pattern>/RegistrationServlet</url-pattern>
+  </filter-mapping>
 </web-app>

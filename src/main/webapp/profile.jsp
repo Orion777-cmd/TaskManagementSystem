@@ -65,7 +65,7 @@
         </form>
         
 
-        <h1 class="text-center mb-4"><%= username %></h1>
+        <h1 class="text-center mb-4"><%= username %>'s Dashboard</h1>
         
         
         <form action="profile.jsp?user_id=<%= user_id %>" method="get" class="mb-3 d-flex justify-content-center">
@@ -106,27 +106,31 @@
                                 <p class="card-text"><%= task.getDescription() %></p>
                                 <p class="card-text">Due Date: <%= task.getDueDate() %></p>
                                 <p class="card-text">Priority: <%= task.getPriority() %></p>
+                                <div class="d-flex flex-row justify-content-around">
                                 
-                                <form action="edittask.jsp" method="get">
-								    <input type="hidden" name="id" value="<%= task.getId() %>">
-								    <input type="hidden" name="task_title" value="<%= task.getTitle() %>">
-								    <input type="hidden" name="description" value="<%= task.getDescription() %>">
-								    <input type="hidden" name="due_date" value="<%= task.getDueDate() %>">
-								    <input type="hidden" name="priority" value="<%= task.getPriority() %>">
-								    <input type="hidden" name="user_id" value="<%= user_id %>">
-								    <button type="submit" class="btn btn-warning">Edit Task</button>
-								</form>
-                                <form action="CompleteTaskServlet" method="post">
-                                    <input type="hidden" name="taskId" value="<%= task.getId() %>">
-                                    <button type="submit" class="btn btn-success <%=(task.isCompleted()) ? "disabled" : ""%>">
-                                        <%= (task.isCompleted()) ? "Completed" : "Complete" %>
-                                    </button>
-                                </form>
-
-                                <form action="DeleteTaskServlet" method="post">
-                                    <input type="hidden" name="taskId" value="<%= task.getId() %>">
-                                    <button type="submit" class="btn btn-danger">Delete Task</button>
-                                </form>
+                                	<form action="edittask.jsp" method="get">
+									    <input type="hidden" name="id" value="<%= task.getId() %>">
+									    <input type="hidden" name="task_title" value="<%= task.getTitle() %>">
+									    <input type="hidden" name="description" value="<%= task.getDescription() %>">
+									    <input type="hidden" name="due_date" value="<%= task.getDueDate() %>">
+									    <input type="hidden" name="priority" value="<%= task.getPriority() %>">
+									    <input type="hidden" name="user_id" value="<%= user_id %>">
+									    <button type="submit" class="btn btn-warning">Edit Task</button>
+									</form>
+	                                <form action="CompleteTaskServlet" method="post">
+	                                    <input type="hidden" name="taskId" value="<%= task.getId() %>">
+	                                    <button type="submit" class="btn btn-success <%=(task.isCompleted()) ? "disabled" : ""%>">
+	                                        <%= (task.isCompleted()) ? "Completed" : "Complete" %>
+	                                    </button>
+	                                </form>
+	
+	                                <form action="DeleteTaskServlet" method="post">
+	                                    <input type="hidden" name="taskId" value="<%= task.getId() %>">
+	                                    <button type="submit" class="btn btn-danger">Delete Task</button>
+	                                </form>
+                                
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
