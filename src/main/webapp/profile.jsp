@@ -55,6 +55,7 @@
         }
 	%>
     <div class="bg-success container mt-5 p-5 d-flex-col">
+    
         <!-- Edit Profile Button -->
         <form action="editprofile.jsp" method="get" >
         
@@ -62,6 +63,10 @@
         	<input type="hidden" name="password" value="<%= password %>">
         	<input type="hidden" name="user_id" value="<%= user_id %>">
         	<button type="submit" value="editprofile.jsp" class="btn btn-primary float-right">Edit Profile</button>
+        </form>
+        
+        <form action="LogoutServlet" method="get">
+        	<button class="btn btn-primary float-right mr-3">logout</button>
         </form>
         
 
